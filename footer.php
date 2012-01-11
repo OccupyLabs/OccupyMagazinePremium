@@ -1,51 +1,51 @@
 <?php 
 global $notin, $the_section_id;
 
-$advanced = theme_option('basic_advanced');
+$advanced = pbt_theme_option('basic_advanced');
 if($advanced != 2 && is_home()) {
 	echo '</div>';
-	$loc = theme_option('sidebar_location1');
+	$loc = pbt_theme_option('sidebar_location1');
 	if(($loc==2 || $loc==4)) {
-		if(theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
+		if(pbt_theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
 	}
-	if(theme_option('sidebar_width2')!=0) 
+	if(pbt_theme_option('sidebar_width2')!=0) 
 		get_sidebar( "second" ); // calling the Second Sidebar
 } else {	
-	if(theme_option('activate_fpls')==1 || !is_home()) echo '</div> <!-- end #maincontent -->';
+	if(pbt_theme_option('activate_fpls')==1 || !is_home()) echo '</div> <!-- end #maincontent -->';
 
  	if(is_singular()) $sidebar_layout = get_post_meta($post->ID, 'pbt_single_layout', true); else $sidebar_layout = '';
-	$loc = theme_option('sidebar_location1');
+	$loc = pbt_theme_option('sidebar_location1');
 	if($sidebar_layout!=2) {
 		if($loc==2 || $loc==4) {
-			if((theme_option('activate_fpls')==1 && is_home()) || !is_home()) {
-				if(theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
+			if((pbt_theme_option('activate_fpls')==1 && is_home()) || !is_home()) {
+				if(pbt_theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
 			}
 		}
-		if(theme_option('sidebar_width2')!=0 && !is_home()) get_sidebar( "second" ); // calling the Second Sidebar
+		if(pbt_theme_option('sidebar_width2')!=0 && !is_home()) get_sidebar( "second" ); // calling the Second Sidebar
 	}
-	if(theme_option('activate_fpls')==1 || !is_home()) echo '<br class="clear" />';
+	if(pbt_theme_option('activate_fpls')==1 || !is_home()) echo '<br class="clear" />';
 	
     if(is_home()) {
-   		if(theme_option('activate_fpls')==1) echo '<div id="lowersection">';
+   		if(pbt_theme_option('activate_fpls')==1) echo '<div id="lowersection">';
 		get_template_part('loop', 'index-lower'); // calling the loop for the lower sections
 		?>   
 	</div> <!-- end #lowerright -->
     
 	<?php
- 		if(($loc==2 || $loc==4) && is_home() && theme_option('activate_fpls')!=1) {
-			if(theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
+ 		if(($loc==2 || $loc==4) && is_home() && pbt_theme_option('activate_fpls')!=1) {
+			if(pbt_theme_option('sidebar_width1')!=0) get_sidebar(); // calling the First Sidebar
 		}
-    	if((theme_option('front_lower_sidebar')!=0 && theme_option('activate_fpls')!=2)  || (theme_option('sidebar_width2')!=0 && theme_option('activate_fpls')!=1)) 
+    	if((pbt_theme_option('front_lower_sidebar')!=0 && pbt_theme_option('activate_fpls')!=2)  || (pbt_theme_option('sidebar_width2')!=0 && pbt_theme_option('activate_fpls')!=1)) 
 			get_sidebar( "second" ); // calling the Second Sidebar
     } // end if is_home()
 } //end Advanced if statement
 
 	echo '<br class="clear" />';
-	if(theme_option('display_imagebar')=="on") { 
+	if(pbt_theme_option('display_imagebar')=="on") { 
 	 ?>
     <div id="imagebar">
          <?php
-		$imagebar = theme_option('fp_imagebar');
+		$imagebar = pbt_theme_option('fp_imagebar');
 		echo "<h2>".get_cat_name($imagebar)."</h2>";
 		echo "<ul>";
 		$posts = array(
@@ -68,35 +68,35 @@ if($advanced != 2 && is_home()) {
 					echo resize(IMAGEBARWIDTH,IMAGEBARWIDTH-60, ''); 
 				}	
 			?>
-            <br /><h4 style="width: <?php $site = theme_option('site_width'); $width = round(($site/5)-($site/30)); echo $width; ?>px;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4></li>
+            <br /><h4 style="width: <?php $site = pbt_theme_option('site_width'); $width = round(($site/5)-($site/30)); echo $width; ?>px;"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4></li>
         <?php $x++; endwhile; ?>
         </ul>
     </div> <!-- end #imagebar -->
     <?php } ?>
-    <?php if(theme_option('extended_footer')!=2) get_sidebar( 'footer' ); // include the Extended Footer Bar ?>
 
-    <!-- begin footer -->
-    <div id="footer">
-        <?php if(theme_option('footer_ad')) { ?>
-        <div id="footerad">
-            <?php echo stripslashes(theme_option('footer_ad')); ?>
-        </div>
-    	<?php } ?>
-    
-    
-        <?php if(theme_option('footer_text')) { 
-			echo stripslashes(theme_option('footer_text'));
-		} else {
-			$link = '<a href="'.get_bloginfo('url').'">'.get_bloginfo('name').'</a>';
-			printf(__('Copyright &copy; %1$d %2$s. All Rights Reserved.', "magazine-premium"), date('Y'), $link); ?>
-        <?php } ?>
-        <br />
-        <?php printf(__('%1$s created by %2$s', "magazine-premium"), '<span class="red">Magazine Premium</span>', '<a href="http://themes.bavotasan.com"><span class="red">Themes by bavotasan.com</span></a>'); ?>.
-        <?php if(theme_option('footer_wordpress_link')==1) { echo '<br />'; printf(__("Powered by %s", "magazine-premium"), '<a href="http://www.wordpress.org">WordPress</a>'); ?>.<?php } ?>
- 		<a href="javascript:void(0)" class="backtotop"><img src="<?php echo THEME_URL; ?>/images/backtotop.png" alt="Back to Top" /></a>
-    </div> <!-- end #footer -->
 <br class="clear" />
 </div> <!-- end #body -->
+
+
+<!-- begin footer -->
+<div id="footer">
+		<div class="custom_wrap">
+	    <?php if(pbt_theme_option('extended_footer')!=2) get_sidebar( 'footer' ); // include the Extended Footer Bar ?>	
+		
+        <?php if(pbt_theme_option('footer_ad')) { ?>
+        <div id="footerad">
+            <?php echo stripslashes(pbt_theme_option('footer_ad')); ?>
+        </div>
+    	<?php } ?>    
+        <?php if(pbt_theme_option('footer_text')) { 
+			echo stripslashes(pbt_theme_option('footer_text'));
+		} else {
+			printf(__('&copy; %1$d %2$s Please feel free to distribute any of the original content on this site across the internet.', "magazine-premium"), date('Y'), '<span style="text-transform:uppercase">'.get_bloginfo('name').'</span>'); ?>
+        <?php } ?>
+        <div id="footer_creative_commons"></div>
+	</div>
+</div> <!-- end #footer -->
+
 
 <?php wp_footer(); ?>
 <script type="text/javascript">
@@ -113,7 +113,7 @@ jQuery("object, embed, .format-video iframe").each(function() {
 });
 <?php 
 if(is_home()) {
-	if(theme_option('slideshow')==1) { ?>
+	if(pbt_theme_option('slideshow')==1) { ?>
 		jQuery("#featured").tabs({fx:{opacity: "toggle"}}).tabs("rotate", 5000, true);
 	<?php } ?>
 <?php } ?>
